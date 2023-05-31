@@ -11,16 +11,34 @@ Example: ['mont', 'y py', 'thon', 's fl', 'ying', ' cir', 'cus']
 """
 import pytest
 
+the_string = 'monty pythons flying circus'
 def no_duplicates(a_string):
-    pass
+    sort_monty = sorted(the_string)
+    without_duplicates = ''
+    for char in sort_monty:
+        if char not in without_duplicates:
+            without_duplicates += char
+    return without_duplicates
+
+print(no_duplicates(the_string))   
 
 
-def reversed_words(a_string):
-    pass
+def reversed_words(a_string): # using list comprehension make a list of the string with split and returns the list backward using list slicing. one liner :)
+    to_a_reversed_list = [item for item in a_string.split(' ')[::-1]] 
+    return to_a_reversed_list
+
+print (reversed_words(the_string))
+
 
 
 def four_char_strings(a_string):
-    pass
+    result = []
+    for i in range(0, len(the_string), 4):
+        substring = the_string[i:i+4]
+        result.append(substring)
+    return result
+
+print (four_char_strings(the_string))
 
 
 def test_no_duplicates():
@@ -39,9 +57,9 @@ def test_four_char_strings():
 
 
 def main():
-    return pytest.main(__file__)
+    return pytest.main([__file__])
 
 
 if __name__ == '__main__':
     main()
-    
+

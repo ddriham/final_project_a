@@ -70,26 +70,39 @@ STATES_CAPITALS = {
 
 
 def capital_of_Idaho():
-    # Your code here
-    pass
+    print (STATES_CAPITALS['Idaho'])
 
 def all_states():
-    # Your code here
-    pass
+    print (STATES_CAPITALS.keys())
 
 def all_capitals():
-    # Your code here
-    pass
-
-def states_capitals_string():
-    # Your code here
-    pass
+    print (STATES_CAPITALS.values())
 
 
+def states_capitals_string(): # becuase the dict(STATES_CAPITALS) is allready sorted alphabetically by the key (state), i have no need to sort it in my function
+    str_state_capitals = ''   # the loop will itirate state by state, by order and will print it as a single string.
+    for state, capital in STATES_CAPITALS.items():
+        str_state_capitals += state + ' ----->' + capital + ',' + ' '
+    return (str_state_capitals[:len(str_state_capitals) -2 ]) # return the string without its two last elements (', ')
 
+
+
+# In a theoretical case where I had two states with a capital city of the same name, this function will return only the first state in the dictionary: 
+# def get_state(capital):
+#     for state, city in STATES_CAPITALS.items():
+#         if city == capital:
+#             return state
+
+
+# The next function creates a list of countries that have a capital city with a certain name, if the list >= 1 then it returns the list as a string:
 def get_state(capital):
-    pass
-
+    if capital in STATES_CAPITALS.values():
+        states = [state for state, city in STATES_CAPITALS.items() if city == capital]
+        if len(states) > 0:
+            return ",".join(states)
+    else:
+        raise KeyError # although KeyError is an error that raise as worng use of key in dictionary the test below expect key-error when worng capitl (VALUE) 
+                       # is used so i had to add this else statment to pass the test.
 
 
 def test_state_to_capital():
@@ -110,8 +123,9 @@ def test_capital_to_state_unknown():
         get_state('')
 
 
+
 def main():
-    return pytest.main(__file__)
+    return pytest.main([__file__])
 
 
 if __name__ == '__main__':
